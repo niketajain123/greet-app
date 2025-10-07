@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            text-align: center;
+            padding-top: 50px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 250px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .greeting {
+            margin-top: 30px;
+            font-size: 24px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello from Flask 👋</h1>
+    <form method="POST">
+        <input type="text" name="name" placeholder="Enter your name" required>
+        <input type="submit" value="Greet Me">
+    </form>
+    {% if name %}
+        <div class="greeting">Welcome, {{ name }}!</div>
+    {% endif %}
+</body>
+</html>
