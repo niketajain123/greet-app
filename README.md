@@ -1,6 +1,6 @@
 # greet-app
 
-edited by ujjwal
+edited by niketa
 
 
 again edited by ujjwal 
