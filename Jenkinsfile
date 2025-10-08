@@ -35,6 +35,7 @@ pipeline {
                     kubectl get pods
                     sleep 10
                 '''
+		input message: "Wanna approve?", ok: "Merge"
             }
         }
     }
