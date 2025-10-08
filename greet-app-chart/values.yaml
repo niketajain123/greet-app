@@ -1,0 +1,16 @@
+replicaCount: 1
+image:
+  repository: greet-app
+  pullPolicy: IfNotPresent
+  tag: "00"
+
+
+service:
+  type: NodePort
+  port: 5000
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
