@@ -4,7 +4,7 @@ pipeline{
 		
 	DOCKER_IMAGE = "greet-app:00"
         HELM_RELEASE = "greet-app-release"
-        HELM_CHART = "greet-app-chart"
+        HELM_CHART = "greet-app-chart" }
 	stage('Cloning') {
             steps {
                 checkout scm
