@@ -1,11 +1,14 @@
-pipeline{
+pipeline {
     agent any
+
     environment {
-		
-	DOCKER_IMAGE = "greet-app:00"
+        DOCKER_IMAGE = "greet-app:00"
         HELM_RELEASE = "greet-app-release"
-        HELM_CHART = "greet-app-chart" }
-	stage('Cloning') {
+        HELM_CHART = "greet-app-chart"
+    }
+
+    stages {
+        stage('Cloning') {
             steps {
                 checkout scm
             }
@@ -17,17 +20,16 @@ pipeline{
             }
         }
 
-	
-	stage('Deployment') {
+        stage('Deployment') {
             steps {
                 sh '''
-                    helm uninstall ${HELM_RELEASE} || echo "Release not found, skipping uninstall"
+                    helm uninstall ${HELM_RELEASE} || echo "Release not found, continuing..."
                     helm install ${HELM_RELEASE} ${HELM_CHART}
                 '''
             }
         }
-	
-	stage('Pods') {
+
+        stage('Pods') {
             steps {
                 sh '''
                     kubectl get pods
@@ -35,9 +37,6 @@ pipeline{
                 '''
             }
         }
-
-      
-            }
-        }
     }
 }
+
