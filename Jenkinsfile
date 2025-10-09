@@ -5,6 +5,8 @@ pipeline {
         DOCKER_IMAGE = "greet-app:00"
         HELM_RELEASE = "greet-app-release"
         HELM_CHART = "greet-app-chart"
+	SONARQUBE_SERVER = 'SonarQube'
+        SONAR_TOKEN = credentials('sonarqube-token')
     }
 
     stages {
@@ -13,7 +15,25 @@ pipeline {
                 checkout scm
             }
         }
+	stage('Code Analysis') {
+            steps {
+                withSonarQubeEnv("${SONARQUBE_SERVER}") {
+                    sh '''
+                        sonar-scanner -X \
+                        -Dsonar.projectKey=greet-app \
+                        -Dsonar.projectName="Greet App" \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=http://localhost:9000 \
+                        -Dsonar.login=${SONAR_TOKEN}
+                    '''
+                }
+            }
+        }
+	
 
+
+
+	
         stage('Building') {
             steps {
                 sh "docker build -t ${DOCKER_IMAGE} ."
