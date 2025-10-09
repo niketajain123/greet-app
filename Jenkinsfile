@@ -39,5 +39,10 @@ pipeline {
             }
         }
     }
+	post{
+		success {
+			build job: "GreetAppCD"
+		}
+	}
 }
 
