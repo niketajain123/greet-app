@@ -59,11 +59,12 @@ pipeline {
             }
         }
     }
-	post{
-		success {
-			build job: "GreetAppCD"
-		}
-	}
+	// post{
+	// 	success {
+	// 		build job: "GreetAppCD"
+	// 	}
+	// }
 }
+
 
 
