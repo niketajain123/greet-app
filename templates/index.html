@@ -30,13 +30,14 @@
     </style>
 </head>
 <body>
-    <h1>Hello from Flask 👋</h1>
+    <h1>Hello 👋</h1>
     <form method="POST">
         <input type="text" name="name" placeholder="Enter your name" required>
         <input type="submit" value="Greet Me">
     </form>
     {% if name %}
-        <div class="greeting">Welcome, {{ name }}!</div>
+        <div class="greeting">Welcome, {{ name }}! This is my Greet-App</div>
     {% endif %}
 </body>
+
 </html>
