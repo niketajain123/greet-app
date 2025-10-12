@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "greet-app:00"
+        DOCKER_IMAGE = "niketa15jain/greet-app:${BUILD_NUMBER}"
         HELM_RELEASE = "greet-app-release"
         HELM_CHART = "greet-app-chart"
 	SONARQUBE_SERVER = 'SonarQube'
@@ -37,14 +37,20 @@ pipeline {
         stage('Building') {
             steps {
                 sh "docker build -t ${DOCKER_IMAGE} ."
+		sh "docker login -u niketa15jain -p niketa15jain"
+		sh docker push ${DOCKER_IMAGE}
             }
         }
 
         stage('Deployment') {
             steps {
-                sh '''
-                    helm uninstall ${HELM_RELEASE} || echo "Release not found, continuing..."
-                    helm install ${HELM_RELEASE} ${HELM_CHART}
+                
+                //    helm uninstall ${HELM_RELEASE} || echo "Release not found, continuing..."
+                //    helm install ${HELM_RELEASE} ${HELM_CHART}
+		sh '''
+    			helm upgrade --install ${HELM_RELEASE} ${HELM_CHART} \
+   			 --set image.repository=niketa15jain/greet-app \
+   			 --set image.tag=${BUILD_NUMBER}
                 '''
             }
         }
