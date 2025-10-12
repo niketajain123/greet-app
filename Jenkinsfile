@@ -38,7 +38,7 @@ pipeline {
             steps {
                 sh "docker build -t ${DOCKER_IMAGE} ."
 		sh "docker login -u niketa15jain -p niketa15jain"
-		sh docker push ${DOCKER_IMAGE}
+		sh "docker push ${DOCKER_IMAGE}"
             }
         }
 
@@ -71,6 +71,7 @@ pipeline {
 	// 	}
 	// }
 }
+
 
 
 
