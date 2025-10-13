@@ -32,13 +32,16 @@
 <body>
     <h1>Hello 👋👋</h1>
     <form method="POST">
-        <input type="text" name="name" placeholder="Enter your name" required>
+        <input type="text" name="fname" placeholder="Enter First Name" required>
+        <input type="text" name="sname" placeholder="Enter Surname" >
         <input type="submit" value="Greet Me">
+        
     </form>
     {% if name %}
-        <div class="greeting">Welcome, {{ name }}! This is my Greet-App</div>
+        <div class="greeting">Welcome, {{ fname }} {{sname}}! This is my Greet-App</div>
     {% endif %}
 </body>
 
 </html>
+
 
