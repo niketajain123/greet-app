@@ -6,8 +6,10 @@ app = Flask(__name__)
 def home():
     name = None
     if request.method == "POST":
-        name = request.form.get("name")
-    return render_template("index.html", name=name)
+        fname = request.form.get("fname")
+        sname = request.form.get("sname"," ")
+    return render_template("index.html", fname=fname, sname=sname)
 
 if __name__ == "__main__":
+
     app.run(host="0.0.0.0", port=5000)
