@@ -4,7 +4,8 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
 def home():
-    name = None
+    fname = None
+    sname= " "
     if request.method == "POST":
         fname = request.form.get("fname")
         sname = request.form.get("sname"," ")
@@ -13,3 +14,4 @@ def home():
 if __name__ == "__main__":
 
     app.run(host="0.0.0.0", port=5000)
+
