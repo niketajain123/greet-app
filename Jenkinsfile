@@ -70,7 +70,28 @@ pipeline {
 	// 		build job: "GreetAppCD"
 	// 	}
 	// }
+	post {
+    success {
+        withCredentials([string(credentialsId: 'slack-webhook', variable: 'SLACK_WEBHOOK')]) {
+            sh '''
+            curl -X POST -H 'Content-type: application/json' \
+            --data '{"text":"✅ Deployment succeeded for greet-app!"}' \
+            $SLACK_WEBHOOK
+            '''
+        }
+    }
+    failure {
+        withCredentials([string(credentialsId: 'slack-webhook', variable: 'SLACK_WEBHOOK')]) {
+            sh '''
+            curl -X POST -H 'Content-type: application/json' \
+            --data '{"text":"❌ Deployment failed for greet-app."}' \
+            $SLACK_WEBHOOK
+            '''
+        }
+    }
 }
+}
+
 
 
 
