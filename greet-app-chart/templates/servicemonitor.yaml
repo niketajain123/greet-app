@@ -4,7 +4,7 @@ kind: ServiceMonitor
 metadata:
   name: {{ include "greet-app-chart.fullname" . }}-monitor
   labels:
-    release: prometheus
+    release: monitoring
 spec:
   selector:
     matchLabels:
