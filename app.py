@@ -1,17 +1,21 @@
 from flask import Flask, render_template, request
 from prometheus_flask_exporter import PrometheusMetrics
+
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
+
 @app.route("/", methods=["GET", "POST"])
 def home():
-    fname = None
-    sname= " "
+    # Initialize variables with default empty strings
+    fname = ""
+    sname = ""
+    
+    # Process form data on POST request
     if request.method == "POST":
-        fname = request.form.get("fname")
-        sname = request.form.get("sname"," ")
+        fname = request.form.get("fname", "")
+        sname = request.form.get("sname", "")
+    
     return render_template("index.html", fname=fname, sname=sname)
 
 if __name__ == "__main__":
-
     app.run(host="0.0.0.0", port=5000)
-
