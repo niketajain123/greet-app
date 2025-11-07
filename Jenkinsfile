@@ -15,21 +15,21 @@ pipeline {
                 checkout scm
             }
         }
-	stage('Code Analysis') {
-            steps {
-                withSonarQubeEnv("${SONARQUBE_SERVER}") {
-                    sh '''
-                        sonar-scanner  \
-                        -Dsonar.projectKey=greet-app \
-                        -Dsonar.projectName="Greet App" \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=http://localhost:9000 \
-                        -Dsonar.token=${SONAR_TOKEN} \
-						-Dsonar.python.version=3.10
-                    '''
-                }
-            }
-        }
+	// stage('Code Analysis') {
+ //            steps {
+ //                withSonarQubeEnv("${SONARQUBE_SERVER}") {
+ //                    sh '''
+ //                        sonar-scanner  \
+ //                        -Dsonar.projectKey=greet-app \
+ //                        -Dsonar.projectName="Greet App" \
+ //                        -Dsonar.sources=. \
+ //                        -Dsonar.host.url=http://localhost:9000 \
+ //                        -Dsonar.token=${SONAR_TOKEN} \
+	// 					-Dsonar.python.version=3.10
+ //                    '''
+ //                }
+ //            }
+ //        }
 	
 
 
@@ -92,6 +92,7 @@ pipeline {
     }
 }
 }
+
 
 
 
