@@ -15,25 +15,20 @@ pipeline {
                 checkout scm
             }
         }
-	// stage('Code Analysis') {
- //            steps {
- //                withSonarQubeEnv("${SONARQUBE_SERVER}") {
- //                    sh '''
- //                        sonar-scanner  \
- //                        -Dsonar.projectKey=greet-app \
- //                        -Dsonar.projectName="Greet App" \
- //                        -Dsonar.sources=. \
- //                        -Dsonar.host.url=http://localhost:9000 \
- //                        -Dsonar.token=${SONAR_TOKEN} \
-	// 					-Dsonar.python.version=3.10
- //                    '''
- //                }
- //            }
- //        }
-	
-
-
-
+	stage('Code Analysis') {
+            steps {
+                withSonarQubeEnv("${SONARQUBE_SERVER}") {
+                    sh '''
+                        sonar-scanner  \
+                        -Dsonar.projectKey=greet-app \
+                        -Dsonar.projectName="Greet App" \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=http://localhost:9000 \
+                        -Dsonar.token=${SONAR_TOKEN}
+                    '''
+                }
+            }
+        }
 	
         stage('Building') {
             steps {
@@ -45,13 +40,10 @@ pipeline {
 
         stage('Deployment') {
             steps {
-                
-                //    helm uninstall ${HELM_RELEASE} || echo "Release not found, continuing..."
-                //    helm install ${HELM_RELEASE} ${HELM_CHART}
-		sh '''
-    			helm upgrade --install ${HELM_RELEASE} ${HELM_CHART} \
-   			 --set image.repository=niketa15jain/greet-app \
-   			 --set image.tag=${BUILD_NUMBER}
+				sh '''
+	    			helm upgrade --install ${HELM_RELEASE} ${HELM_CHART} \
+	   			 --set image.repository=niketa15jain/greet-app \
+	   			 --set image.tag=${BUILD_NUMBER}
                 '''
             }
         }
@@ -60,19 +52,14 @@ pipeline {
             steps {
                 sh '''
                     kubectl get pods
-                    sleep 10
                 '''
 		input message: "Wanna approve?", ok: "Merge"
             }
         }
     }
-	// post{
-	// 	success {
-	// 		build job: "GreetAppCD"
-	// 	}
-	// }
 	post {
     success {
+        build job: "GreetAppCD"
         withCredentials([string(credentialsId: 'slack-webhook', variable: 'SLACK_WEBHOOK')]) {
             sh '''
             curl -X POST -H 'Content-type: application/json' \
@@ -92,6 +79,8 @@ pipeline {
     }
 }
 }
+
+
 
 
 
