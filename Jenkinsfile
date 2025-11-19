@@ -59,7 +59,7 @@ pipeline {
     }
 	post {
     success {
-        build job: "GreetAppCD"
+        
         withCredentials([string(credentialsId: 'slack-webhook', variable: 'SLACK_WEBHOOK')]) {
             sh '''
             curl -X POST -H 'Content-type: application/json' \
@@ -79,6 +79,7 @@ pipeline {
     }
 }
 }
+
 
 
 
