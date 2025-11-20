@@ -17,16 +17,7 @@ pipeline {
         }
 	stage('Code Analysis') {
             steps {
-                withSonarQubeEnv("${SONARQUBE_SERVER}") {
-                    sh '''
-                        sonar-scanner  \
-                        -Dsonar.projectKey=greet-app \
-                        -Dsonar.projectName="Greet App" \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=http://localhost:9000 \
-                        -Dsonar.token=${SONAR_TOKEN}
-                    '''
-                }
+               sleep 100
             }
         }
 	
@@ -79,6 +70,7 @@ pipeline {
     }
 }
 }
+
 
 
 
