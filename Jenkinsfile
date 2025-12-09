@@ -5,8 +5,6 @@ pipeline {
         DOCKER_IMAGE = "niketa15jain/greet-app:${BUILD_NUMBER}"
         HELM_RELEASE = "greet-app-release"
         HELM_CHART = "greet-app-chart"
-	SONARQUBE_SERVER = 'SonarQube'
-        SONAR_TOKEN = credentials('sonarqube-token')
     }
 
     stages {
@@ -14,13 +12,7 @@ pipeline {
             steps {
                 checkout scm
             }
-        }
-	stage('Code Analysis') {
-            steps {
-               sleep 100
-            }
-        }
-	
+        }	
         stage('Building') {
             steps {
                 sh "docker build -t ${DOCKER_IMAGE} ."
@@ -70,6 +62,7 @@ pipeline {
     }
 }
 }
+
 
 
 
